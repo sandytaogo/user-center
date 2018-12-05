@@ -25,7 +25,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * application startup
+ * application startup This example uses the Spring Cloud {@code DiscoveryClient } abstraction to list all services
+ * available to the application. It should deployed to a Cloud consul organization and space that
+ * has other applications deployed to it.
  * 
  * @author Sandy
  * @since 04th 12 2018
