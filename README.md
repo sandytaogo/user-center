@@ -1,5 +1,7 @@
 # Spring cloud 
 
+[![Build Status](https://img.shields.io/travis/benweet/stackedit.svg?style=flat)](https://spring.io/projects/spring-cloud)
+
 > 微服务英文名称Microservice，Microservice架构模式就是将整个Web应用组织为一系列小的Web服务。这些小的Web服务可以独立地编译及部署，并通过各自暴露的API接口相互通讯。它们彼此相互协作，作为一个整体为用户提供功能，却可以独立地进行扩。
 
 ### 微服务架构需要的功能或使用场景
