@@ -1,4 +1,4 @@
-# Spring cloud 
+# Spring cloud User Center
 
 [![Build Status](https://img.shields.io/travis/benweet/stackedit.svg?style=flat)](https://spring.io/projects/spring-cloud)
 

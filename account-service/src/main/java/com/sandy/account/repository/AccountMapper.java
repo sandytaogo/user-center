@@ -17,7 +17,7 @@
 package com.sandy.account.repository;
 
 import com.sandy.account.domain.Account;
-import com.sandy.infrastructure.mapper.AbstractMapper;
+import com.sandy.ecp.mybatis.mapper.AbstractMapper;
 
 /**
  * account data access object
@@ -25,6 +25,6 @@ import com.sandy.infrastructure.mapper.AbstractMapper;
  * @author Sandy
  * @since 04th 12 2018
  */
-public interface AccountMapper extends AbstractMapper<Account> {
+public interface AccountMapper extends AbstractMapper<Account, Long> {
 
 }

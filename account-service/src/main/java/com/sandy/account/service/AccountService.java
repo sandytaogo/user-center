@@ -25,9 +25,7 @@ import org.springframework.stereotype.Service;
 import com.sandy.account.domain.Account;
 import com.sandy.account.repository.AccountMapper;
 import com.sandy.account.repository.AccountRepository;
-import com.sandy.infrastructure.mapper.AbstractMapper;
-import com.sandy.infrastructure.service.AbstractService;
-
+import com.sandy.ecp.mybatis.service.AbstractService;
 /**
  * service
  * 
@@ -35,21 +33,13 @@ import com.sandy.infrastructure.service.AbstractService;
  * @since 04th 12 2018 
  */
 @Service
-public class AccountService extends AbstractService<Account> {
+public class AccountService extends AbstractService<AccountMapper, Account, Long> {
 
 	@Autowired(required = false)
 	private AccountMapper accountMapper;
 	@Autowired(required = false)
 	public AccountRepository accountRepository;
 	
-	
-	@Override
-	//@Resource(name = "accountRepository")
-	public void setAbstractMapper(AbstractMapper<Account> abstractMapper) {
-		super.setAbstractMapper(abstractMapper);
-	}
-	
-	@Override
 	public Account queryById(Long id) {
 		if(null ==id) {
 			return null;

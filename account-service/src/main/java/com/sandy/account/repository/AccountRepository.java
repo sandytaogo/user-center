@@ -28,7 +28,6 @@ import org.springframework.stereotype.Repository;
 
 import com.sandy.account.domain.Account;
 import com.sandy.account.util.DataSourceUtils;
-import com.sandy.infrastructure.dao.IAbstractDao;
 
 /**
  * account data access object
@@ -37,7 +36,7 @@ import com.sandy.infrastructure.dao.IAbstractDao;
  * @since 04th 12 2018
  */
 @Repository("accountRepository")
-public class AccountRepository implements IAbstractDao<Account> {
+public class AccountRepository {
 
 	private DataSource dataSource;
 	
@@ -46,7 +45,6 @@ public class AccountRepository implements IAbstractDao<Account> {
 		this.dataSource = dataSource;
 	}
 
-	@Override
 	public Account queryById(Long id) {
 		Connection conn = null;
 		Account account = null;

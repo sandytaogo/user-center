@@ -16,7 +16,7 @@
 
 package com.sandy.account.domain;
 
-import com.sandy.infrastructure.domain.AbstractDateEntity;
+import com.sandy.ecp.framework.domain.AbstractDateEntity;
 
 /**
  * platform Account center model

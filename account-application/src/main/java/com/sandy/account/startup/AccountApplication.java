@@ -36,7 +36,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableDiscoveryClient
 @EnableAutoConfiguration
 @EnableTransactionManagement
-@ComponentScan(basePackages = {"com.sandy.account.config" , "com.sandy.account.controller","com.sandy.account.service", "com.sandy.account.repository"})
+@ComponentScan(basePackages = {
+	"com.sandy.account.config" ,
+	"com.sandy.account.controller",
+	"com.sandy.account.service",
+	"com.sandy.account.repository"
+})
 @PropertySource("classpath:jdbc.properties")
 public class AccountApplication {
 	
