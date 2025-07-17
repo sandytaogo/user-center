@@ -1,0 +1,28 @@
+server:
+  port: 10080
+ 
+spring:
+  application:
+    name: user-center
+  cloud:
+    config:
+      enabled: false
+      server:
+        git:
+           uri:  http://127.0.0.1:8050/config/java-config.git
+           search-paths: config-repo
+           username: root
+           password: 123456
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 15
+    lease-renewal-interval-in-seconds: 5
+  client:
+    registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone: http://ecms-registry:10070/eureka/
+#关闭Spring Boot Actuator的健康监控，如果不关闭则会自动连接redis然后报错Redis health check failed
+management:
+  health:
+    redis:
+      enabled: false
