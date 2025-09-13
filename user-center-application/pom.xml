@@ -15,6 +15,7 @@
   <description>Demo project for Spring Boot</description>
 
 	<dependencies>
+	
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
@@ -59,6 +60,36 @@
 		<dependency>
 			<groupId>org.springframework.security.oauth.boot</groupId>
 			<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+		</dependency>
+		
+		<!--MyBatis整合springboot起步依赖 -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.solace.labs.spring.boot</groupId>
+		    <artifactId>solace-jms-spring-boot-autoconfigure</artifactId>
+		    <version>0.1.2</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.solace.spring.boot</groupId>
+		    <artifactId>solace-jms-spring-boot-autoconfigure</artifactId>
+		    <version>3.0.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.solace.spring.boot</groupId>
+		    <artifactId>solace-jms-spring-boot-starter</artifactId>
+		    <version>3.0.0</version>
 		</dependency>
 		
 		<dependency>

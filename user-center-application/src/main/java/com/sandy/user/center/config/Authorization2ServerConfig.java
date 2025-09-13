@@ -53,7 +53,7 @@ public class Authorization2ServerConfig extends AuthorizationServerConfigurerAda
      * webSecurityConfig 中配置的AuthenticationManager
      */
     @Autowired
-    @Qualifier("authenticationManagerBean")
+    @Qualifier("authenticationManager")
     private AuthenticationManager authenticationManager;
 
     /**
@@ -133,6 +133,8 @@ public class Authorization2ServerConfig extends AuthorizationServerConfigurerAda
         endpoints.tokenStore(tokenStore());
         endpoints.userDetailsService(userDetailsService);
         endpoints.setClientDetailsService(clientDetailsService);
+        
+        
         //配置TokenServices参数
         DefaultTokenServices tokenServices = new DefaultTokenServices();
         tokenServices.setTokenStore(endpoints.getTokenStore());

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.sandy.user.center.mapper.AccountMapper">
+  	
+  	<cache eviction="LRU" flushInterval="120000" size="64" blocking="true" readOnly="true"/>
+  	
+  	
+	<resultMap type="com.sandy.user.center.domain.Account" id="resultMap">
+		<id column="GID" property="id" jdbcType="BIGINT"/>
+		<result column="CIRCLE_ID" property="circleId" jdbcType="BIGINT"/>
+		<result column="ROLE_IDS" property="roleIds" jdbcType="VARCHAR"/>
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+		<result column="GENDER" property="gender" jdbcType="TINYINT"/>
+		<result column="NICK_NAME" property="nickName" jdbcType="VARCHAR"/>
+		<result column="HEAD_PORTRAIT" property="headPortrait" jdbcType="VARCHAR"/>
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR"/>
+		<result column="EMAIL" property="email" jdbcType="VARCHAR"/>
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+		<result column="IS_LOCKED" property="islocked" jdbcType="BIT"/>
+		<result column="CREATED_ID" property="createdId" jdbcType="BIGINT"/>
+		<result column="CREATED_TIME" property="createdTime" jdbcType="TIMESTAMP"/>
+		<result column="UPDATED_Id" property="updatedId" jdbcType="BIGINT"/>
+		<result column="UPDATED_TIME" property="updatedTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<sql id="table_name">
+		T_SYSTEM_USER
+	</sql>
+	<sql id="column_name_list">
+		GID,CREATED_TIME,UPDATED_ID,UPDATED_TIME,USER_NAME,GENDER,NICK_NAME,HEAD_PORTRAIT,MOBILE,EMAIL,PASSWORD,IS_LOCKED
+	</sql>
+	
+	<sql id="foreach_filter_list">
+		<choose>
+			<when test="filterList != null and filterList.size > 0">
+				<foreach collection="filterList" item="searchFilter" separator="AND" open=" " close="" >
+					<choose>
+						<when test="searchFilter.operator.symbol eq 'like'">
+							${searchFilter.fieldName} like concat('%',concat(#{searchFilter.value}, '%'))
+						</when>
+						<otherwise>
+							${searchFilter.fieldName}${searchFilter.operator.symbol}#{searchFilter.value}
+						</otherwise>
+					</choose>
+				</foreach>
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="selectById" resultMap="resultMap">
+		SELECT 
+		<include refid="column_name_list" />
+		FROM
+		<include refid="table_name" />
+		WHERE GID = #{id}
+	</select>
+  	
+  	<select id="selectPageListByFilter" resultMap="resultMap">
+		SELECT 
+		<include refid="column_name_list"/>
+		FROM 
+		<include refid="table_name"/>
+		<where>
+			<include refid="foreach_filter_list"/>
+		</where>
+		<if test="pageRequest != null">
+			<if test="pageRequest.sort != null">
+				<foreach collection="pageRequest.sort" item="orderBy" separator="," open=" order by " close="" >
+					${orderBy.property} ${orderBy.direction}
+				</foreach>
+			</if>
+			LIMIT #{pageRequest.offset},#{pageRequest.pageSize}
+		</if>
+	</select>
+	
+	<select id="selectPageCountByFilter" resultType="java.lang.Integer">
+		SELECT COUNT(GID) FROM 
+		<include refid="table_name" /> 
+		<where>
+			<include refid="foreach_filter_list" />
+		</where>
+	</select>
+	
+	<select id="selectByAccount" resultMap="resultMap">
+		SELECT 
+		<include refid="column_name_list" />
+		FROM
+		<include refid="table_name" />
+		WHERE USER_NAME=#{account,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByMobile" resultMap="resultMap">
+		SELECT 
+		<include refid="column_name_list" />
+		FROM
+		<include refid="table_name" />
+		WHERE MOBILE=#{mobile,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="save" parameterType="com.sandy.user.center.domain.Account">
+		INSERT INTO
+        <include refid="table_name"/>
+        (GID,CIRCLE_ID,ROLE_IDS,USER_NAME,GENDER,MOBILE,NICK_NAME,HEAD_PORTRAIT,PASSWORD,IS_LOCKED,CREATED_ID,CREATED_TIME,UPDATED_ID,UPDATED_TIME)
+        VALUES
+       	(
+            #{id,jdbcType=BIGINT},
+            #{circleId,jdbcType=BIGINT},
+            #{roleIds,jdbcType=VARCHAR},
+           	#{userName,jdbcType=VARCHAR},
+           	#{gender,jdbcType=TINYINT},
+           	#{mobile,jdbcType=VARCHAR},
+           	#{nickName,jdbcType=VARCHAR},
+           	#{headPortrait,jdbcType=VARCHAR},
+           	#{password,jdbcType=VARCHAR},
+           	#{islocked,jdbcType=BIT},
+            #{createdId,jdbcType=BIGINT},
+            #{createdTime,jdbcType=TIMESTAMP},
+            #{updatedId,jdbcType=BIGINT},
+            #{updatedTime,jdbcType=TIMESTAMP}
+        )
+	</insert>
+	
+	<update id="update" parameterType="com.sandy.user.center.domain.Account" >
+		UPDATE 
+		<include refid="table_name" />
+		<set>
+			<if test="nickName != null">
+				NICK_NAME=#{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				GENDER=#{gender,jdbcType=TINYINT},
+			</if>
+			<if test="email != null">
+				EMAIL=#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				MOBILE=#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="headPortrait != null">
+				HEAD_PORTRAIT=#{headPortrait,jdbcType=VARCHAR},
+			</if>
+			UPDATED_ID=#{updatedId,jdbcType=BIGINT},
+	      	UPDATED_TIME=#{updatedTime,jdbcType=TIMESTAMP}
+		</set>
+		WHERE GID=#{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateResetpwd" parameterType="com.sandy.user.center.domain.Account">
+		UPDATE
+		<include refid="table_name" />
+		<set>
+			PASSWORD=#{password,jdbcType=VARCHAR},
+			UPDATED_ID=#{updatedId,jdbcType=BIGINT},
+            UPDATED_TIME=#{updatedTime,jdbcType=TIMESTAMP}
+		</set>
+		WHERE GID=#{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateLockById" parameterType="com.sandy.user.center.domain.Account">
+		UPDATE
+		<include refid="table_name" />
+		<set>
+			IS_LOCKED=#{islocked,jdbcType=BIT},
+			UPDATED_ID=#{updatedId,jdbcType=BIGINT},
+            UPDATED_TIME=#{updatedTime,jdbcType=TIMESTAMP}
+		</set>
+		WHERE GID=#{id,jdbcType=BIGINT}
+	</update>
+ 
+</mapper>

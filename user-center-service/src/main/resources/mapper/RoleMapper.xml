@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sandy.user.center.mapper.RoleMapper">
+
+	<resultMap type="com.sandy.user.center.domain.Role" id="resultMap">
+		<id     property="id"       column="GID"        />
+		<result property="name"     column="NAME"      />
+		<result property="roleKey"      column="ROLE_KEY" />
+		<result property="sort"     column="SORT" />
+		<result property="scope"    column="SCOPE" />
+		<result property="status"       column="STATUS"         />
+		<result property="deleteFlag"      column="DELETE_FLAG"       />
+		<result property="remark"       column="REMARK"         />
+		<result column="CREATED_ID" property="createdId" jdbcType="BIGINT" />
+		<result column="CREATED_TIME" property="createdTime" jdbcType="TIMESTAMP"/>
+		<result column="UPDATED_Id" property="updatedId" jdbcType="BIGINT"/>
+		<result column="UPDATED_TIME" property="updatedTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<sql id="table_name">
+		 T_ROLE
+	</sql>
+	
+	<sql id="column_name_list">
+		GID,CREATED_ID,CREATED_TIME,UPDATED_ID,UPDATED_TIME,
+		NAME,ROLE_KEY,SORT,SCOPE,STATUS,REMARK
+	</sql>
+	
+	<sql id="foreach_filter_list">
+		<choose>
+			<when test="filterList != null and filterList.size > 0">
+				<foreach collection="filterList" item="searchFilter" separator="AND" open=" " close="" >
+					<choose>
+						<when test="searchFilter.operator.symbol eq 'like'">
+							${searchFilter.fieldName} like concat('%',concat(#{searchFilter.value}, '%'))
+						</when>
+						<otherwise>
+							${searchFilter.fieldName}${searchFilter.operator.symbol}#{searchFilter.value}
+						</otherwise>
+					</choose>
+				</foreach>
+				AND DELETE_FLAG = 0
+			</when>
+			<otherwise>
+				AND DELETE_FLAG = 0
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="selectById" resultMap="resultMap">
+		SELECT 
+		<include refid="column_name_list"/>
+		FROM 
+		<include refid="table_name"/>
+		where GID = #{id}
+	</select>
+	
+	<select id="selectPageListByFilter" resultMap="resultMap">
+		SELECT 
+		<include refid="column_name_list"/>
+		FROM 
+		<include refid="table_name"/>
+		<where>
+			<include refid="foreach_filter_list"/>
+		</where>
+		<if test="pageRequest != null">
+			<if test="pageRequest.sort != null">
+				<foreach collection="pageRequest.sort" item="orderBy" separator="," open=" order by " close="" >
+					${orderBy.property} ${orderBy.direction}
+				</foreach>
+			</if>
+			LIMIT #{pageRequest.offset},#{pageRequest.pageSize}
+		</if>
+	</select>
+	
+	<select id="selectPageCountByFilter" resultType="java.lang.Integer">
+		SELECT 
+		COUNT(GID) 
+		FROM 
+		<include refid="table_name" /> 
+		<where>
+			<include refid="foreach_filter_list" />
+		</where>
+	</select>
+	
+	<sql id="selectRoleContactVo">
+        select DISTINCT r.GID, r.NAME, r.ROLE_KEY, r.SORT, r.SCOPE,
+            R.STATUS, R.DELETE_FLAG, R.CREATED_TIME, R.REMARK 
+        FROM T_ROLE R
+	        LEFT JOIN SYS_USER_ROLE UR ON UR.GID = R.GID
+	        LEFT JOIN SYS_USER U ON U.USER_ID = UR.USER_ID
+	        LEFT JOIN SYS_DEPT D ON U.DEPT_ID = D.DEPT_ID
+    </sql>
+    
+    <sql id="selectRoleVo">
+		SELECT R.GID, R.NAME, R.ROLE_KEY, R.SORT, R.SCOPE, R.STATUS, R.DELETE_FLAG, R.CREATED_TIME, R.REMARK 
+        FROM T_ROLE R
+	</sql>
+	
+	<select id="selectRoleList" parameterType="com.sandy.user.center.domain.Role" resultMap="resultMap">
+		<include refid="selectRoleContactVo"/>
+		where r.DELETE_FLAG = '0'
+		<if test="id != null and id != 0">
+			AND r.GID = #{id}
+		</if>
+		<if test="name != null and name != ''">
+			AND r.NAME like concat('%', #{name}, '%')
+		</if>
+		<if test="status != null and status != ''">
+			AND r.status = #{status}
+		</if>
+		<if test="roleKey != null and roleKey != ''">
+			AND r.role_key like concat('%', #{roleKey}, '%')
+		</if>
+		<if test="scope != null and scope != ''">
+			AND r.SCOPE = #{scope}
+		</if>
+		<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+			and date_format(r.CREATED_TIME,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+		</if>
+		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+			and date_format(r.CREATED_TIME,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+		</if>
+		<!-- 数据范围过滤 -->
+		${params.scope}
+	</select>
+
+	<select id="selectRolesByUserId" parameterType="Long" resultMap="resultMap">
+		<include refid="selectRoleContactVo"/>
+		WHERE r.DELETE_FLAG = '0' and ur.user_id = #{userId}
+	</select>
+	
+	<select id="selectRoleById" parameterType="Long" resultMap="resultMap">
+		<include refid="selectRoleVo"/>
+		where r.DELETE_FLAG = '0' and r.GID = #{id}
+	</select>
+	
+	<select id="checknameUnique" parameterType="String" resultMap="resultMap">
+		<include refid="selectRoleVo"/>
+		 where r.NAME=#{name} and r.DELETE_FLAG = '0' limit 1
+	</select>
+	
+	<select id="checkRoleKeyUnique" parameterType="String" resultMap="resultMap">
+		<include refid="selectRoleVo"/>
+		 where r.role_key=#{roleKey} and r.DELETE_FLAG = '0' limit 1
+	</select>
+ 	
+ 	<insert id="save" parameterType="com.sandy.user.center.domain.Role" useGeneratedKeys="true" keyProperty="id">
+ 		insert into t_role(
+ 			<if test="id != null and id != 0">GID,</if>
+ 			<if test="name != null and name != ''">NAME,</if>
+ 			<if test="roleKey != null and roleKey != ''">ROLE_KEY,</if>
+ 			<if test="sort != null and sort != ''">SORT,</if>
+ 			<if test="scope != null and scope != ''">SCOPE,</if>
+ 			<if test="status != null and status != ''">status,</if>
+ 			<if test="remark != null and remark != ''">REMARK,</if>
+ 			<if test="createdId != null and createdId != ''">CREATED_ID,</if>
+ 			CREATED_TIME
+ 		)VALUES(
+ 			<if test="id != null and id != 0">#{id},</if>
+ 			<if test="name != null and name != ''">#{name},</if>
+ 			<if test="roleKey != null and roleKey != ''">#{roleKey},</if>
+ 			<if test="sort != null and sort != ''">#{sort},</if>
+ 			<if test="scope != null and scope != ''">#{scope},</if>
+ 			<if test="status != null and status != ''">#{status},</if>
+ 			<if test="remark != null and remark != ''">#{remark},</if>
+ 			<if test="createdId != null and createdId != ''">#{createdId},</if>
+ 			sysdate()
+ 		)
+	</insert>
+ 	
+ 	<update id="update" parameterType="com.sandy.user.center.domain.Role">
+ 		update t_role
+ 		<set>
+ 			<if test="name != null and name != ''">NAME = #{name},</if>
+ 			<if test="roleKey != null and roleKey != ''">role_key = #{roleKey},</if>
+ 			<if test="sort != null and sort != ''">SORT = #{sort},</if>
+ 			<if test="scope != null and scope != ''">SCOPE = #{scope},</if>
+ 			<if test="status != null and status != ''">status = #{status},</if>
+ 			<if test="remark != null">remark = #{remark},</if>
+ 			<if test="updatedId != null and updatedId != ''">UPDATED_ID = #{updatedId},</if>
+ 			UPDATED_TIME = sysdate()
+ 		</set>
+ 		where GID = #{id}
+	</update>
+	
+	<update id="updateDeleteById" parameterType="Long">
+ 		UPDATE T_ROLE SET DELETE_FLAG = '1' WHERE GID = #{id}
+ 	</update>
+ 	
+ 	<update id="updateDeleteByIds" parameterType="Long">
+ 	    update t_role set DELETE_FLAG = '2' where GID in
+ 		<foreach collection="array" item="id" open="(" separator="," close=")">
+ 			#{id}
+        </foreach>
+ 	</update>
+ 	
+ 	<delete id="deleteById">
+ 		DELETE T_ROLE SET DELETE_FLAG = '1' WHERE GID = #{id}
+ 	</delete>
+	
+	<delete id="deleteByIds" parameterType="Long">
+ 	    DELETE T_ROLE SET DELETE_FLAG = '1' where GID IN
+ 		<foreach collection="array" item="id" open="(" separator="," close=")">
+ 			#{id}
+        </foreach> 
+ 	</delete>
+</mapper> 

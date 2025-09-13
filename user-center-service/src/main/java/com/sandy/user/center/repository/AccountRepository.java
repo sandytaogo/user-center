@@ -50,7 +50,7 @@ public class AccountRepository {
 		Account account = null;
 		try {
 			conn = dataSource.getConnection();
-			String sql = "SELECT * FROM SYSTEM_USER WHERE ID = ?;";
+			String sql = "SELECT * FROM T_SYSTEM_USER WHERE GID = ?;";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setLong(1, id);
 			ResultSet result = ps.executeQuery();

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sandy.user.center.repository;
+package com.sandy.user.center.mapper;
 
 import com.sandy.ecp.mybatis.mapper.AbstractMapper;
 import com.sandy.user.center.domain.Account;
@@ -23,8 +23,12 @@ import com.sandy.user.center.domain.Account;
  * account data access object
  * 
  * @author Sandy
- * @since 04th 12 2018
+ * @since 1.0.0 04th 12 2018
  */
 public interface AccountMapper extends AbstractMapper<Account, Long> {
 
+	
+	Account selectByAccount(String account);
+	
+	Account selectByMobile(String mobile);
 }

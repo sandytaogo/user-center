@@ -15,13 +15,16 @@
  */
 package com.sandy.user.center.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.sandy.user.center.domain.Account;
 import com.sandy.user.center.domain.AuthUserInfo;
+import com.sandy.user.center.mapper.AccountMapper;
 
 /**
  * implements spring framework UserDetailsService.
@@ -31,19 +34,25 @@ import com.sandy.user.center.domain.AuthUserInfo;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 	
+	@Autowired
+	private AccountMapper accountMapper;
+	
 	public UserDetailsServiceImpl() {
 		super();
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Account user = null;
-		if (username == null) {
-			user = new Account();
+		if (StringUtils.isEmpty(username)) {
+            throw new UsernameNotFoundException("用户名不能为空!");
+        }
+		Account user = accountMapper.selectByMobile(username);
+		if (user == null) {
+			user = accountMapper.selectByAccount(username);
 		}
 		// 如果用户不存在则认证失败
-        if(user == null){
-            throw new UsernameNotFoundException(username + " not found");
+        if(user == null) {
+        	throw new UsernameNotFoundException("账号或密码错误!");
         }
 		return new AuthUserInfo("test", "test", user.getRoles());
 	}

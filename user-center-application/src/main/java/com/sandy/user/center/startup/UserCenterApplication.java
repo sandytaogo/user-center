@@ -16,6 +16,7 @@
 
 package com.sandy.user.center.startup;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthIndicatorAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -29,6 +30,9 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.solace.labs.spring.boot.autoconfigure.SolaceJmsAutoConfiguration;
+import com.solace.spring.boot.autoconfigure.SolaceJmsAutoCloudConfiguration;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -44,6 +48,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication(
 	exclude = {
 		MongoAutoConfiguration.class,
+		SolaceJmsAutoConfiguration.class,
+		SolaceJmsAutoCloudConfiguration.class,
+		SolaceJmsAutoConfiguration.class,
 	})
 @EnableHystrix
 @EnableSwagger2
@@ -60,6 +67,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 	"com.sandy.user.center.service",
 	"com.sandy.user.center.repository"
 })
+@MapperScan({"com.sandy.user.center.mapper"})
 //@EnableJpaRepositories(basePackages = {
 //		"com.sandy.user",
 //		"org.flowable",
@@ -78,7 +86,7 @@ public class UserCenterApplication extends SpringBootServletInitializer {
 		return super.configure(builder);
 	}
 	
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(UserCenterApplication.class, args);
     }
 }

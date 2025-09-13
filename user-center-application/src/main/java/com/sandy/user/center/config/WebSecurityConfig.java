@@ -15,11 +15,16 @@
  */
 package com.sandy.user.center.config;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,6 +32,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.google.common.collect.Lists;
 
 /**
  * 用户中心 Web Security Configure 
@@ -69,8 +76,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    public AuthenticationManager authenticationManager() throws Exception {
+    	
+    	AuthenticationManager am = super.authenticationManager();
+    	
+    	DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+    	authenticationProvider.setUserDetailsService(userDetailsService);
+    	authenticationProvider.setPasswordEncoder(passwordEncoder());
+    	
+    	List<AuthenticationProvider> providers = Lists.newArrayList();
+    	providers.add(authenticationProvider);
+    	
+        return new ProviderManager(providers, am);
     }
 
     /**
@@ -93,6 +110,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers("/oauth/**").authenticated()
         .and()
-        .formLogin().permitAll(); //新增login form支持用户登录及授权
+        .formLogin().loginPage("/login") //自定义登录页面
+        .permitAll() //新增login form支持用户登录及授权
+        .and().logout().permitAll(); // 允许匿名访问登出页面
     }
 }

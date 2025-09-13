@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 
 import com.sandy.ecp.mybatis.service.AbstractService;
 import com.sandy.user.center.domain.Account;
-import com.sandy.user.center.repository.AccountMapper;
+import com.sandy.user.center.mapper.AccountMapper;
 import com.sandy.user.center.repository.AccountRepository;
 /**
  * service

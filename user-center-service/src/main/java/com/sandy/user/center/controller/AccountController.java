@@ -27,6 +27,7 @@ import com.sandy.ecp.framework.web.annotation.EcpDeleteMapping;
 import com.sandy.ecp.framework.web.annotation.EcpGetMapping;
 import com.sandy.ecp.framework.web.annotation.EcpPatchMapping;
 import com.sandy.ecp.framework.web.annotation.EcpPostMapping;
+import com.sandy.ecp.framework.web.annotation.EcpPutMapping;
 import com.sandy.user.center.assembler.AccountAssembler;
 import com.sandy.user.center.domain.Account;
 import com.sandy.user.center.service.AccountService;
@@ -44,7 +45,7 @@ public class AccountController {
 	@Autowired(required = false)
 	private AccountService accountService;
 
-	@EcpGetMapping("get")
+	@EcpGetMapping
 	public AccountVO get(HttpServletRequest request) {
 		String idStr = request.getParameter("id");
 		Long id = null;
@@ -55,18 +56,22 @@ public class AccountController {
 		return AccountAssembler.convert(account);
 	}
 	
-	@EcpPostMapping("update")
-	public Account update(HttpServletRequest request) {
+	@EcpPostMapping
+	public Account create(HttpServletRequest request) {
 		return null;
 	}
 	
-	@EcpPatchMapping("patch")
+	@EcpPutMapping
+	public Account put(HttpServletRequest request) {
+		return null;
+	}
+	
+	@EcpPatchMapping
 	public Account patch(HttpServletRequest request) {
-		
 		return null;
 	}
 	
-	@EcpDeleteMapping("delete")
+	@EcpDeleteMapping
 	public Account delete(HttpServletRequest request) {
 		return null;
 	}
