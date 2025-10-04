@@ -15,21 +15,14 @@
  */
 package com.sandy.user.center.repository;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sandy.user.center.domain.UserSessionMongo;
+import com.sandy.user.center.domain.UserMongo;
 
-@Repository
-public interface UserSessionRepository extends MongoRepository<UserSessionMongo, String> {
+@Repository("userMongoRepository")
+public interface UserMongoRepository extends MongoRepository<UserMongo, ObjectId> {
 
-
 	
-	
-	
-	
-	
-	
-	
-	//db.createUser({user:"admin", pwd:"123456", roles:[{rele:"root", db:"admin"}]})
 }

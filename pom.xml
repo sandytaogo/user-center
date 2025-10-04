@@ -10,7 +10,7 @@
   <!--https://tkjohn.github.io/flowable-userguide/migration.html -->
   <!-- https://gitee.com/linjinp-spring-cloud -->
   <!-- https://mvnrepository.com -->
-  <!--http://bootstrap-fileinput.com/options.html -->
+  <!--http://bootstrap-fileinput.com/options.html resolved -->
   <artifactId>user-center</artifactId>
   <packaging>pom</packaging>
   <name>user-center</name>
@@ -19,6 +19,7 @@
     <ecp.version>0.0.1-SNAPSHOT</ecp.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <flowable.version>6.8.1</flowable.version>
+    <mongodb.upgrade.version>5.0.0</mongodb.upgrade.version>
   </properties>
   <dependencyManagement>
     <dependencies>

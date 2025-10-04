@@ -22,7 +22,6 @@ import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthIndic
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -47,7 +46,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @SpringBootApplication(
 	exclude = {
-		MongoAutoConfiguration.class,
 		SolaceJmsAutoConfiguration.class,
 		SolaceJmsAutoCloudConfiguration.class,
 		SolaceJmsAutoConfiguration.class,
@@ -73,16 +71,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 //		"org.flowable",
 //})
 @EntityScan(basePackages = {
-		"com.sandy.user",
+		"com.sandy.user.center",
 		"org.flowable",
 		"com.sandy.workflow",
 })
 @PropertySource("classpath:jdbc.properties")
 public class UserCenterApplication extends SpringBootServletInitializer {
 	
-	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		//org.mongodb.driver.connection tretre = null;
 		return super.configure(builder);
 	}
 	

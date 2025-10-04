@@ -18,18 +18,19 @@ package com.sandy.user.center.repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sandy.user.center.domain.UserSessionMongo;
+import com.sandy.user.center.domain.UserLoginLogMongo;
 
+/**
+ * 用户登录日志信息.
+ * @author Sandy
+ * @since 1.0.0 2025-09-09 12:12:12
+ */
 @Repository
-public interface UserSessionRepository extends MongoRepository<UserSessionMongo, String> {
+public interface UserLoginLogMongoReposition extends MongoRepository<UserLoginLogMongo, String> {
 
+	
+	
+	
+	
 
-	
-	
-	
-	
-	
-	
-	
-	//db.createUser({user:"admin", pwd:"123456", roles:[{rele:"root", db:"admin"}]})
 }

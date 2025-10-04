@@ -15,41 +15,42 @@
  */
 package com.sandy.user.center.domain;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-/**
- * 用户会话数据存储中心.
- * @author Sandy
- * @date 2025-09-09 12:12:12
- */
-@Document(collection="user_session")
-
-public class UserSessionMongo {
+@Document(collection="user_login_log")
+public class UserLoginLogMongo {
 
 	@Id
 	private String id;
 	
-	private String access;
+	@Indexed(unique = true)
+	private String userId;
 	
-	private String token;
-
+	@Field("created_time")
+	private Date createdTime;
+	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getAccess() {
-		return access;
+	
+	public String getUserId() {
+		return userId;
 	}
-	public void setAccess(String access) {
-		this.access = access;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public String getToken() {
-		return token;
+	public Date getCreatedTime() {
+		return createdTime;
 	}
-	public void setToken(String token) {
-		this.token = token;
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
 	}
 }

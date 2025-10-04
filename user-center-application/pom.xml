@@ -75,6 +75,12 @@
 		</dependency>
 		
 		<dependency>
+		    <groupId>org.mongodb</groupId>
+		    <artifactId>mongodb-driver-sync</artifactId>
+		    <version>4.8.0</version>
+		</dependency>
+		
+		<dependency>
 		    <groupId>com.solace.labs.spring.boot</groupId>
 		    <artifactId>solace-jms-spring-boot-autoconfigure</artifactId>
 		    <version>0.1.2</version>

@@ -13,23 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sandy.user.center.repository;
+package com.sandy.user.center.vo;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import com.sandy.ecp.framework.vo.AbstractVO;
 
-import com.sandy.user.center.domain.UserSessionMongo;
+public class UserMongoVO extends AbstractVO<String> {
 
-@Repository
-public interface UserSessionRepository extends MongoRepository<UserSessionMongo, String> {
+	private static final long serialVersionUID = 3042987892717402645L;
 
+	private String userName;
+	private String nickName;
 
-	
-	
-	
-	
-	
-	
-	
-	//db.createUser({user:"admin", pwd:"123456", roles:[{rele:"root", db:"admin"}]})
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 }

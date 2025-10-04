@@ -23,6 +23,11 @@ import com.solacesystems.jms.SolConnectionFactory;
 import com.solacesystems.jms.SolJmsUtility;
 import com.solacesystems.jms.SupportedProperty;
 
+/**
+ * solace jms
+ * @author Sandy
+ * @see https://solace.com/products/platform/
+ */
 @Configuration
 @ConfigurationProperties("solace.jms")
 @ConditionalOnProperty(value = "solace.jms.enabled", havingValue = "true")
