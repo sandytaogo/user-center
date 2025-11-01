@@ -17,7 +17,7 @@
 package com.sandy.user.center.mapper;
 
 import com.sandy.ecp.mybatis.mapper.AbstractMapper;
-import com.sandy.user.center.domain.Account;
+import com.sandy.user.center.domain.User;
 
 /**
  * account data access object
@@ -25,10 +25,10 @@ import com.sandy.user.center.domain.Account;
  * @author Sandy
  * @since 1.0.0 04th 12 2018
  */
-public interface AccountMapper extends AbstractMapper<Account, Long> {
+public interface UserMapper extends AbstractMapper<User, Long> {
 
 	
-	Account selectByAccount(String account);
+	User selectByAccount(String account);
 	
-	Account selectByMobile(String mobile);
+	User selectByMobile(String mobile);
 }

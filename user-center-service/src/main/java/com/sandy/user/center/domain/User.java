@@ -19,6 +19,7 @@ package com.sandy.user.center.domain;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Table;
 
 import com.sandy.ecp.framework.domain.AbstractDateEntity;
 
@@ -28,7 +29,8 @@ import com.sandy.ecp.framework.domain.AbstractDateEntity;
  * @author Sandy
  * @since 1.0.0 04th 12 2018
  */
-public class Account extends AbstractDateEntity<Long> {
+@Table(name = "user")
+public class User extends AbstractDateEntity<Long> {
 
 	private static final long serialVersionUID = -9164029279692125389L;
 

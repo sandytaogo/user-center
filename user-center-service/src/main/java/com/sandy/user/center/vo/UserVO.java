@@ -26,7 +26,7 @@ import com.sandy.ecp.framework.vo.AbstractDateVO;
  * @author Sandy
  * @since 1.0.0 04th 12 2018
  */
-public class AccountVO extends AbstractDateVO<Long> {
+public class UserVO extends AbstractDateVO<Long> {
 
 	private static final long serialVersionUID = 8986970279121376438L;
 	

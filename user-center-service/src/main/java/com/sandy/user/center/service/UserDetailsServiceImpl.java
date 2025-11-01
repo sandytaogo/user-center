@@ -22,9 +22,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.sandy.user.center.domain.Account;
+import com.sandy.user.center.domain.User;
 import com.sandy.user.center.domain.AuthUserInfo;
-import com.sandy.user.center.mapper.AccountMapper;
+import com.sandy.user.center.mapper.UserMapper;
 
 /**
  * implements spring framework UserDetailsService.
@@ -35,7 +35,7 @@ import com.sandy.user.center.mapper.AccountMapper;
 public class UserDetailsServiceImpl implements UserDetailsService {
 	
 	@Autowired
-	private AccountMapper accountMapper;
+	private UserMapper userMapper;
 	
 	public UserDetailsServiceImpl() {
 		super();
@@ -46,9 +46,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (StringUtils.isEmpty(username)) {
             throw new UsernameNotFoundException("用户名不能为空!");
         }
-		Account user = accountMapper.selectByMobile(username);
+		User user = userMapper.selectByMobile(username);
 		if (user == null) {
-			user = accountMapper.selectByAccount(username);
+			user = userMapper.selectByAccount(username);
 		}
 		// 如果用户不存在则认证失败
         if(user == null) {

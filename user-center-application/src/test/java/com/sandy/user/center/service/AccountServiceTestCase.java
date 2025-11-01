@@ -32,7 +32,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
-import com.sandy.user.center.domain.Account;
+import com.sandy.user.center.domain.User;
 import com.sandy.user.center.startup.UserCenterApplication;
 
 @DirtiesContext
@@ -51,13 +51,13 @@ public class AccountServiceTestCase extends AbstractTransactionalJUnit4SpringCon
 	public static String applicationName = "test-application";
 	
 	@Autowired
-	private AccountService accountService;
+	private UserService accountService;
 	
 	RestTemplate restTemplate = new TestRestTemplate().getRestTemplate();  
 	
 	@Test
 	public void test() {
-		Account account = accountService.queryById(id);
+		User account = accountService.queryById(id);
 		System.err.println(account);
 	}
 	

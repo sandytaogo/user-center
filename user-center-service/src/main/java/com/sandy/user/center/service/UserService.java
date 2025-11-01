@@ -23,9 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sandy.ecp.mybatis.service.AbstractService;
-import com.sandy.user.center.domain.Account;
-import com.sandy.user.center.mapper.AccountMapper;
-import com.sandy.user.center.repository.AccountRepository;
+import com.sandy.user.center.domain.User;
+import com.sandy.user.center.mapper.UserMapper;
+import com.sandy.user.center.repository.UserRepository;
 /**
  * service
  * 
@@ -33,14 +33,14 @@ import com.sandy.user.center.repository.AccountRepository;
  * @since 04th 12 2018 
  */
 @Service
-public class AccountService extends AbstractService<AccountMapper, Account, Long> {
+public class UserService extends AbstractService<UserMapper, User, Long> {
 
 	@Autowired(required = false)
-	private AccountMapper accountMapper;
+	private UserMapper accountMapper;
 	@Autowired(required = false)
-	public AccountRepository accountRepository;
+	public UserRepository accountRepository;
 	
-	public Account queryById(Long id) {
+	public User queryById(Long id) {
 		if(null ==id) {
 			return null;
 		}
@@ -48,9 +48,9 @@ public class AccountService extends AbstractService<AccountMapper, Account, Long
 	}
 	
 	
-	public List<Account> queryList() {
-		List<Account> list = new ArrayList<>();
-		Account account = accountMapper.selectById(Long.MAX_VALUE);
+	public List<User> queryList() {
+		List<User> list = new ArrayList<>();
+		User account = accountMapper.selectById(Long.MAX_VALUE);
 		list.add(account);
 		return list;
 	}

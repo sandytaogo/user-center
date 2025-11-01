@@ -15,8 +15,22 @@
  */
 package com.sandy.user.center.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.sandy.ecp.framework.web.annotation.EcpDeleteMapping;
+import com.sandy.ecp.framework.web.annotation.EcpGetMapping;
+import com.sandy.ecp.framework.web.annotation.EcpPatchMapping;
+import com.sandy.ecp.framework.web.annotation.EcpPostMapping;
+import com.sandy.ecp.framework.web.annotation.EcpPutMapping;
+import com.sandy.user.center.assembler.AccountAssembler;
+import com.sandy.user.center.domain.User;
+import com.sandy.user.center.service.UserService;
+import com.sandy.user.center.vo.UserVO;
 
 /**
  * user center user controller.
@@ -28,10 +42,37 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("user")
 public class UserController {
 
+	@Autowired(required = false)
+	private UserService accountService;
+
+	@EcpGetMapping
+	public UserVO get(HttpServletRequest request) {
+		String idStr = request.getParameter("id");
+		Long id = null;
+		if (StringUtils.isNumeric(idStr)) {
+			id = Long.parseLong(idStr);
+		}
+		User account = accountService.queryById(id);
+		return AccountAssembler.convert(account);
+	}
 	
+	@EcpPostMapping
+	public User create(HttpServletRequest request) {
+		return null;
+	}
 	
+	@EcpPutMapping
+	public User put(HttpServletRequest request) {
+		return null;
+	}
 	
+	@EcpPatchMapping
+	public User patch(HttpServletRequest request) {
+		return null;
+	}
 	
-	
-	
+	@EcpDeleteMapping
+	public User delete(HttpServletRequest request) {
+		return null;
+	}
 }

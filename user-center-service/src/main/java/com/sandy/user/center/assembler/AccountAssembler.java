@@ -16,8 +16,8 @@
 
 package com.sandy.user.center.assembler;
 
-import com.sandy.user.center.domain.Account;
-import com.sandy.user.center.vo.AccountVO;
+import com.sandy.user.center.domain.User;
+import com.sandy.user.center.vo.UserVO;
 
 /**
  * account assembler
@@ -33,11 +33,11 @@ public final class AccountAssembler {
 	 * @param account
 	 * @return AccountVO
 	 */
-	public static AccountVO convert(Account account) {
+	public static UserVO convert(User account) {
 		if(null == account) {
 			return null;
 		}
-		AccountVO accountVO = new AccountVO();
+		UserVO accountVO = new UserVO();
 		accountVO.setId(account.getId());
 		return accountVO;
 	}

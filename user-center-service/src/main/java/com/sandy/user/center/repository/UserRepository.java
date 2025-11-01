@@ -26,7 +26,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.sandy.user.center.domain.Account;
+import com.sandy.user.center.domain.User;
 import com.sandy.user.center.util.DataSourceUtils;
 
 /**
@@ -35,8 +35,8 @@ import com.sandy.user.center.util.DataSourceUtils;
  * @author Sandy
  * @since 04th 12 2018
  */
-@Repository("accountRepository")
-public class AccountRepository {
+@Repository("userRepository")
+public class UserRepository {
 
 	private DataSource dataSource;
 	
@@ -45,9 +45,9 @@ public class AccountRepository {
 		this.dataSource = dataSource;
 	}
 
-	public Account queryById(Long id) {
+	public User queryById(Long id) {
 		Connection conn = null;
-		Account account = null;
+		User account = null;
 		try {
 			conn = dataSource.getConnection();
 			String sql = "SELECT * FROM T_SYSTEM_USER WHERE GID = ?;";
@@ -55,7 +55,7 @@ public class AccountRepository {
 			ps.setLong(1, id);
 			ResultSet result = ps.executeQuery();
 			if(result.next()) {
-				account = new Account();
+				account = new User();
 				account.setId(result.getLong(1));
 			}
 		} catch (SQLException e) {
