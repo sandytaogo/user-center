@@ -34,7 +34,11 @@ public class UserMongo {
 	
 	private String userName;
 	
+	private String mobile;
+	
 	private String nickName;
+	
+	private List<RoleMongo> roles;
 	
 	private List<UserLoginLogMongo> userLoginLog;
 
@@ -50,11 +54,23 @@ public class UserMongo {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 	public String getNickName() {
 		return nickName;
 	}
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
+	}
+	public List<RoleMongo> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<RoleMongo> roles) {
+		this.roles = roles;
 	}
 	public List<UserLoginLogMongo> getUserLoginLog() {
 		return userLoginLog;

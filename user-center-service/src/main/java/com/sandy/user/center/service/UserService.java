@@ -1,11 +1,11 @@
 /*
- * Copyright 2018 the original author or authors.
+ * Copyright 2023-2035 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.company.com/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,9 +26,10 @@ import com.sandy.ecp.mybatis.service.AbstractService;
 import com.sandy.user.center.domain.User;
 import com.sandy.user.center.mapper.UserMapper;
 import com.sandy.user.center.repository.UserRepository;
+import com.sandy.user.center.transfer.UserTransfer;
+import com.sandy.user.center.vo.UserVO;
 /**
- * service
- * 
+ * user center account service.
  * @author Sandy
  * @since 04th 12 2018 
  */
@@ -36,21 +37,23 @@ import com.sandy.user.center.repository.UserRepository;
 public class UserService extends AbstractService<UserMapper, User, Long> {
 
 	@Autowired(required = false)
-	private UserMapper accountMapper;
-	@Autowired(required = false)
-	public UserRepository accountRepository;
+	private UserMapper userMapper;
 	
-	public User queryById(Long id) {
+	@Autowired(required = false)
+	public UserRepository userRepository;
+	@Autowired(required = false)
+	private UserTransfer userTransfer;
+	
+	public UserVO queryByGId(Long id) {
 		if(null ==id) {
 			return null;
 		}
-		return accountRepository.queryById(id);
+		return userTransfer.toVO(userMapper.selectById(id));
 	}
-	
 	
 	public List<User> queryList() {
 		List<User> list = new ArrayList<>();
-		User account = accountMapper.selectById(Long.MAX_VALUE);
+		User account = userMapper.selectById(Long.MAX_VALUE);
 		list.add(account);
 		return list;
 	}

@@ -24,5 +24,7 @@ import com.sandy.user.center.domain.UserMongo;
 @Repository("userMongoRepository")
 public interface UserMongoRepository extends MongoRepository<UserMongo, ObjectId> {
 
+	UserMongo selectByUserName(String userName);
 	
+	UserMongo selectByMobile(String mobile);
 }

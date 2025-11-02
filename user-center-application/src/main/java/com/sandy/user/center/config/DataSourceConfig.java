@@ -40,8 +40,8 @@ public class DataSourceConfig {
 
 	BasicDataSource dataSource;
 
-	@Bean
-	public DataSource loadDataSource() {
+	@Bean("customDataSource")
+	public DataSource customDataSource() {
 		dataSource = new BasicDataSource();
 		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
 		dataSource.setUrl(env.getProperty("jdbc.url"));

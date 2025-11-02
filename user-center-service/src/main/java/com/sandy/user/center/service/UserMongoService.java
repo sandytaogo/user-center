@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors.
+ * Copyright 2023-2035 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 package com.sandy.user.center.service;
-
-import javax.annotation.PostConstruct;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +32,6 @@ public class UserMongoService {
 	
 	@Autowired
     protected MongoTemplate mongoTemplate;
-	
-	@PostConstruct
-	public void init() {
-		System.out.println("sfsfssf");
-	}
 	
 	public void save(UserMongoVO model) {
 		UserMongo po = new UserMongo();

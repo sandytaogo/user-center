@@ -48,7 +48,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 	exclude = {
 		SolaceJmsAutoConfiguration.class,
 		SolaceJmsAutoCloudConfiguration.class,
-		SolaceJmsAutoConfiguration.class,
 	})
 @EnableHystrix
 @EnableSwagger2
@@ -63,6 +62,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 	"com.sandy.user.center.config",
 	"com.sandy.user.center.controller",
 	"com.sandy.user.center.service",
+	"com.sandy.user.center.transfer",
+	"com.sandy.user.center.assembler",
 	"com.sandy.user.center.repository"
 })
 @MapperScan({"com.sandy.user.center.mapper"})

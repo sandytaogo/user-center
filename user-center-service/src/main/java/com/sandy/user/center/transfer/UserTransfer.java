@@ -13,24 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sandy.user.center.tansfer;
+package com.sandy.user.center.transfer;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
 import com.sandy.ecp.framework.model.AbstractObjectTransfer;
-import com.sandy.user.center.vo.UserVO;
+import com.sandy.user.center.assembler.UserAssembler;
 import com.sandy.user.center.domain.User;
+import com.sandy.user.center.vo.UserVO;
 
+@Component
 public class UserTransfer extends AbstractObjectTransfer<UserVO, User, Long> {
-
+	
 	@Override
 	public User toPO(UserVO vo) {
 		if(null == vo) {
 			return null;
 		}
-		User po = new User();
-		BeanUtils.copyProperties(vo, po);
-		return po;
+		return UserAssembler.INSTANCE.userToUserPo(vo);
 	}
 
 	@Override

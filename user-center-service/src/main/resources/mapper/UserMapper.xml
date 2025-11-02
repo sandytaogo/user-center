@@ -2,12 +2,12 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.sandy.user.center.mapper.AccountMapper">
+  <mapper namespace="com.sandy.user.center.mapper.UserMapper">
   	
   	<cache eviction="LRU" flushInterval="120000" size="64" blocking="true" readOnly="true"/>
   	
   	
-	<resultMap type="com.sandy.user.center.domain.Account" id="resultMap">
+	<resultMap type="com.sandy.user.center.domain.User" id="resultMap">
 		<id column="GID" property="id" jdbcType="BIGINT"/>
 		<result column="CIRCLE_ID" property="circleId" jdbcType="BIGINT"/>
 		<result column="ROLE_IDS" property="roleIds" jdbcType="VARCHAR"/>
@@ -101,7 +101,7 @@
 		WHERE MOBILE=#{mobile,jdbcType=VARCHAR}
 	</select>
 	
-	<insert id="save" parameterType="com.sandy.user.center.domain.Account">
+	<insert id="save" parameterType="com.sandy.user.center.domain.User">
 		INSERT INTO
         <include refid="table_name"/>
         (GID,CIRCLE_ID,ROLE_IDS,USER_NAME,GENDER,MOBILE,NICK_NAME,HEAD_PORTRAIT,PASSWORD,IS_LOCKED,CREATED_ID,CREATED_TIME,UPDATED_ID,UPDATED_TIME)
@@ -124,7 +124,7 @@
         )
 	</insert>
 	
-	<update id="update" parameterType="com.sandy.user.center.domain.Account" >
+	<update id="update" parameterType="com.sandy.user.center.domain.User" >
 		UPDATE 
 		<include refid="table_name" />
 		<set>
@@ -149,7 +149,7 @@
 		WHERE GID=#{id,jdbcType=BIGINT}
 	</update>
 	
-	<update id="updateResetpwd" parameterType="com.sandy.user.center.domain.Account">
+	<update id="updateResetpwd" parameterType="com.sandy.user.center.domain.User">
 		UPDATE
 		<include refid="table_name" />
 		<set>
@@ -160,7 +160,7 @@
 		WHERE GID=#{id,jdbcType=BIGINT}
 	</update>
 	
-	<update id="updateLockById" parameterType="com.sandy.user.center.domain.Account">
+	<update id="updateLockById" parameterType="com.sandy.user.center.domain.User">
 		UPDATE
 		<include refid="table_name" />
 		<set>

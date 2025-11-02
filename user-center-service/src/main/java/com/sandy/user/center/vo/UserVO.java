@@ -31,6 +31,7 @@ public class UserVO extends AbstractDateVO<Long> {
 	private static final long serialVersionUID = 8986970279121376438L;
 	
 	private String mobile;
+	private String nickName;
 	
 	@Override
 	@JsonFormat(shape = Shape.STRING)
@@ -44,7 +45,13 @@ public class UserVO extends AbstractDateVO<Long> {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder buffer = new StringBuilder(80);

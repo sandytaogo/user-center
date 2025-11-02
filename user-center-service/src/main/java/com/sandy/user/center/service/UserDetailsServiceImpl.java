@@ -22,8 +22,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.sandy.user.center.domain.User;
 import com.sandy.user.center.domain.AuthUserInfo;
+import com.sandy.user.center.domain.User;
 import com.sandy.user.center.mapper.UserMapper;
 
 /**
