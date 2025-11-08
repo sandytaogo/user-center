@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2035 the original author or authors.
+ * Copyright 2025-2035 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,32 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sandy.user.center.transfer;
+package com.sandy.user.center.service.dto;
 
-import org.springframework.stereotype.Component;
+import static org.junit.Assert.assertThat;
 
-import com.sandy.ecp.framework.model.AbstractObjectTransfer;
+import org.junit.Test;
+
 import com.sandy.user.center.assembler.UserAssembler;
 import com.sandy.user.center.domain.User;
 import com.sandy.user.center.vo.UserVO;
 
-@Component
-public class UserTransfer extends AbstractObjectTransfer<UserVO, User, Long> {
+import junit.framework.TestCase;
+
+public class UserTransferDtoTest extends TestCase {
 	
-	@Override
-	public User toPO(UserVO vo) {
-		if(null == vo) {
-			return null;
-		}
-		return UserAssembler.INSTANCE.userToUserPo(vo);
+	public void testsfdds() {
+		System.out.println("default test...");
+		//given
+		User user = new User();
+	    //when
+		UserVO carDto = UserAssembler.INSTANCE.userToUserDto(user);
+	    //then
+	    assertThat(carDto, null);
 	}
 
-	@Override
-	public UserVO toVO(User po) {
-		if(null == po) {
-			return null;
-		}
-		return UserAssembler.INSTANCE.toVo(po);
+	@Test
+	public void shouldMapCarToDtoTest() {
+	    
 	}
-	
 }
+
+

@@ -23,12 +23,21 @@ import javax.persistence.Table;
 
 import com.sandy.ecp.framework.domain.AbstractDateEntity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 /**
  * platform Account center model
  * 
  * @author Sandy
  * @since 1.0.0 04th 12 2018
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 @Table(name = "user")
 public class User extends AbstractDateEntity<Long> {
 
@@ -134,6 +143,7 @@ public class User extends AbstractDateEntity<Long> {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+	
 	@Override
 	public String toString() {
 		StringBuilder buffer = new StringBuilder(200);

@@ -73,6 +73,7 @@
   </dependencies>
   
   <modules>
+  	<module>user-center-provider</module>
   	<module>user-center-service</module>
     <module>user-center-application</module>
   </modules>

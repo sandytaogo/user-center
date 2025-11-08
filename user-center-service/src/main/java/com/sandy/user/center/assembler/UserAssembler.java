@@ -21,12 +21,13 @@ import org.mapstruct.factory.Mappers;
 
 import com.sandy.user.center.domain.User;
 import com.sandy.user.center.vo.UserVO;
-
-@Mapper
+/**
+ * extends Converter<UserVO, User>
+ */
+@Mapper(componentModel = "spring")
 public interface UserAssembler {
 	
 	UserAssembler INSTANCE = Mappers.getMapper(UserAssembler.class);
-
 	
 	@Mapping(source = "mobile", target = "mobile")
 	@Mapping(source = "nickName", target = "nickName")
@@ -36,4 +37,7 @@ public interface UserAssembler {
 	@Mapping(source = "nickName", target = "nickName")
 	User userToUserPo(UserVO vo);
 	
+	@Mapping(source = "mobile", target = "mobile")
+	@Mapping(source = "nickName", target = "nickName")
+	UserVO toVo(User po);
 }

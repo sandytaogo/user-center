@@ -20,12 +20,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.sandy.ecp.framework.vo.AbstractDateVO;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * user center account view object.
  * 
  * @author Sandy
  * @since 1.0.0 04th 12 2018
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserVO extends AbstractDateVO<Long> {
 
 	private static final long serialVersionUID = 8986970279121376438L;
