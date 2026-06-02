@@ -13,30 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sandy.user.center.dto;
+package com.sandy.user.center.vo;
 
 import com.sandy.ecp.framework.vo.AbstractVO;
 
 /**
- * 用户中心授权认证平台.
+ * user center account view object.
+ * 
  * @author Sandy
- * @since 1.0.0 2025-11-04 12:12:12
+ * @since 1.0.0 04th 12 2018
  */
-public class AuthorizePlatformDto extends AbstractVO<Long> {
+public class RoleVO extends AbstractVO<String> {
 
-	private static final long serialVersionUID = 352825659310505839L;
-
-	private String domain;
+	private static final long serialVersionUID = 625409478357662563L;
 	
 	private String name;
-
-	public String getDomain() {
-		return domain;
-	}
-
-	public void setDomain(String domain) {
-		this.domain = domain;
-	}
 
 	public String getName() {
 		return name;
@@ -45,4 +36,5 @@ public class AuthorizePlatformDto extends AbstractVO<Long> {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 }

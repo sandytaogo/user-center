@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</choose>
 	</sql>
 	
-	<select id="selectById" resultMap="resultMap">
+	<select id="selectById" databaseId="mysql" resultMap="resultMap">
 		SELECT 
 		<include refid="column_name_list"/>
 		FROM 
@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where GID = #{id}
 	</select>
 	
-	<select id="selectPageListByFilter" resultMap="resultMap">
+	<select id="selectPageListByFilter" databaseId="mysql" resultMap="resultMap">
 		SELECT 
 		<include refid="column_name_list"/>
 		FROM 
@@ -75,7 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	</select>
 	
-	<select id="selectPageCountByFilter" resultType="java.lang.Integer">
+	<select id="selectPageCountByFilter" databaseId="mysql" resultType="java.lang.Integer">
 		SELECT 
 		COUNT(GID) 
 		FROM 
@@ -99,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM T_ROLE R
 	</sql>
 	
-	<select id="selectRoleList" parameterType="com.sandy.user.center.domain.Role" resultMap="resultMap">
+	<select id="selectRoleList" databaseId="mysql" parameterType="com.sandy.user.center.domain.Role" resultMap="resultMap">
 		<include refid="selectRoleContactVo"/>
 		where r.DELETE_FLAG = '0'
 		<if test="id != null and id != 0">
@@ -127,27 +127,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		${params.scope}
 	</select>
 
-	<select id="selectRolesByUserId" parameterType="Long" resultMap="resultMap">
+	<select id="selectRolesByUserId" databaseId="mysql" parameterType="Long" resultMap="resultMap">
 		<include refid="selectRoleContactVo"/>
 		WHERE r.DELETE_FLAG = '0' and ur.user_id = #{userId}
 	</select>
 	
-	<select id="selectRoleById" parameterType="Long" resultMap="resultMap">
+	<select id="selectRoleById" databaseId="mysql" parameterType="Long" resultMap="resultMap">
 		<include refid="selectRoleVo"/>
 		where r.DELETE_FLAG = '0' and r.GID = #{id}
 	</select>
 	
-	<select id="checknameUnique" parameterType="String" resultMap="resultMap">
+	<select id="checknameUnique" databaseId="mysql" parameterType="String" resultMap="resultMap">
 		<include refid="selectRoleVo"/>
 		 where r.NAME=#{name} and r.DELETE_FLAG = '0' limit 1
 	</select>
 	
-	<select id="checkRoleKeyUnique" parameterType="String" resultMap="resultMap">
+	<select id="checkRoleKeyUnique" databaseId="mysql" parameterType="String" resultMap="resultMap">
 		<include refid="selectRoleVo"/>
 		 where r.role_key=#{roleKey} and r.DELETE_FLAG = '0' limit 1
 	</select>
  	
- 	<insert id="save" parameterType="com.sandy.user.center.domain.Role" useGeneratedKeys="true" keyProperty="id">
+ 	<insert id="save" databaseId="mysql" parameterType="com.sandy.user.center.domain.Role" useGeneratedKeys="true" keyProperty="id">
  		insert into t_role(
  			<if test="id != null and id != 0">GID,</if>
  			<if test="name != null and name != ''">NAME,</if>
@@ -171,7 +171,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		)
 	</insert>
  	
- 	<update id="update" parameterType="com.sandy.user.center.domain.Role">
+ 	<update id="update" databaseId="mysql" parameterType="com.sandy.user.center.domain.Role">
  		update t_role
  		<set>
  			<if test="name != null and name != ''">NAME = #{name},</if>
@@ -186,22 +186,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		where GID = #{id}
 	</update>
 	
-	<update id="updateDeleteById" parameterType="Long">
+	<update id="updateDeleteById" databaseId="mysql" parameterType="Long">
  		UPDATE T_ROLE SET DELETE_FLAG = '1' WHERE GID = #{id}
  	</update>
  	
- 	<update id="updateDeleteByIds" parameterType="Long">
+ 	<update id="updateDeleteByIds" databaseId="mysql" parameterType="Long">
  	    update t_role set DELETE_FLAG = '2' where GID in
  		<foreach collection="array" item="id" open="(" separator="," close=")">
  			#{id}
         </foreach>
  	</update>
  	
- 	<delete id="deleteById">
+ 	<delete id="deleteById" databaseId="mysql">
  		DELETE T_ROLE SET DELETE_FLAG = '1' WHERE GID = #{id}
  	</delete>
 	
-	<delete id="deleteByIds" parameterType="Long">
+	<delete id="deleteByIds" databaseId="mysql" parameterType="Long">
  	    DELETE T_ROLE SET DELETE_FLAG = '1' where GID IN
  		<foreach collection="array" item="id" open="(" separator="," close=")">
  			#{id}

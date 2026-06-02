@@ -6,7 +6,6 @@
   	
   	<cache eviction="LRU" flushInterval="120000" size="64" blocking="true" readOnly="true"/>
   	
-  	
 	<resultMap type="com.sandy.user.center.domain.User" id="resultMap">
 		<id column="GID" property="id" jdbcType="BIGINT"/>
 		<result column="CIRCLE_ID" property="circleId" jdbcType="BIGINT"/>
@@ -51,7 +50,7 @@
 		</choose>
 	</sql>
 	
-	<select id="selectById" resultMap="resultMap">
+	<select id="selectById" databaseId="mysql" resultMap="resultMap">
 		SELECT 
 		<include refid="column_name_list" />
 		FROM
@@ -59,7 +58,7 @@
 		WHERE GID = #{id}
 	</select>
   	
-  	<select id="selectPageListByFilter" resultMap="resultMap">
+  	<select id="selectPageListByFilter" databaseId="mysql" resultMap="resultMap">
 		SELECT 
 		<include refid="column_name_list"/>
 		FROM 
@@ -77,7 +76,7 @@
 		</if>
 	</select>
 	
-	<select id="selectPageCountByFilter" resultType="java.lang.Integer">
+	<select id="selectPageCountByFilter" databaseId="mysql" resultType="java.lang.Integer">
 		SELECT COUNT(GID) FROM 
 		<include refid="table_name" /> 
 		<where>
@@ -85,7 +84,7 @@
 		</where>
 	</select>
 	
-	<select id="selectByAccount" resultMap="resultMap">
+	<select id="selectByAccount" databaseId="mysql" resultMap="resultMap">
 		SELECT 
 		<include refid="column_name_list" />
 		FROM
@@ -93,7 +92,7 @@
 		WHERE USER_NAME=#{account,jdbcType=VARCHAR}
 	</select>
 	
-	<select id="selectByMobile" resultMap="resultMap">
+	<select id="selectByMobile" databaseId="mysql" resultMap="resultMap">
 		SELECT 
 		<include refid="column_name_list" />
 		FROM
@@ -101,7 +100,7 @@
 		WHERE MOBILE=#{mobile,jdbcType=VARCHAR}
 	</select>
 	
-	<insert id="save" parameterType="com.sandy.user.center.domain.User">
+	<insert id="save" databaseId="mysql" parameterType="com.sandy.user.center.domain.User">
 		INSERT INTO
         <include refid="table_name"/>
         (GID,CIRCLE_ID,ROLE_IDS,USER_NAME,GENDER,MOBILE,NICK_NAME,HEAD_PORTRAIT,PASSWORD,IS_LOCKED,CREATED_ID,CREATED_TIME,UPDATED_ID,UPDATED_TIME)
@@ -124,7 +123,7 @@
         )
 	</insert>
 	
-	<update id="update" parameterType="com.sandy.user.center.domain.User" >
+	<update id="update" databaseId="mysql" parameterType="com.sandy.user.center.domain.User" >
 		UPDATE 
 		<include refid="table_name" />
 		<set>
@@ -149,7 +148,7 @@
 		WHERE GID=#{id,jdbcType=BIGINT}
 	</update>
 	
-	<update id="updateResetpwd" parameterType="com.sandy.user.center.domain.User">
+	<update id="updateResetpwd" databaseId="mysql" parameterType="com.sandy.user.center.domain.User">
 		UPDATE
 		<include refid="table_name" />
 		<set>
@@ -160,7 +159,7 @@
 		WHERE GID=#{id,jdbcType=BIGINT}
 	</update>
 	
-	<update id="updateLockById" parameterType="com.sandy.user.center.domain.User">
+	<update id="updateLockById" databaseId="mysql" parameterType="com.sandy.user.center.domain.User">
 		UPDATE
 		<include refid="table_name" />
 		<set>

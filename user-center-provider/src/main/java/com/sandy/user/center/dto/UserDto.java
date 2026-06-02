@@ -15,14 +15,30 @@
  */
 package com.sandy.user.center.dto;
 
+import com.sandy.ecp.framework.vo.AbstractVO;
+
 /**
  * 用户个人信息.
  * @author Sandy
- * 
+ * @since 1.0.0 2025-11-04 12:12:12
  */
-public class UserDto {
+public class UserDto extends AbstractVO<Long> {
 
+	private static final long serialVersionUID = -4317253834295601659L;
+	
 	private String userName;
 	private String mobile;
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 	
 }

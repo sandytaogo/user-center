@@ -18,17 +18,26 @@ package com.sandy.user.center.dto;
 import com.sandy.ecp.framework.vo.AbstractVO;
 
 /**
- * 用户中心角色 data transfer object.
+ * 用户权限 data transfer object.
  * @author sandy. 
  * @since 1.0.0 2025-11-04 12:12:12
  */
-public class RoleDto extends AbstractVO<Long> {
-
-	private static final long serialVersionUID = 6943593358791736494L;
+public class UserPermissionDto extends AbstractVO<Long> {
 	
+	private static final long serialVersionUID = -5776380958785136678L;
+
 	private Long userId;
 	
-	private String name;
+	/**
+	 * 执行（Execute）权限‌：对应数字1
+	‌ * 写（Write）权限‌：对应数字2
+	 * 执行,写（Execute, Write）3
+	‌ * 读（Read）权限‌：对应数字4
+	 * 执行，读（Execute，Read）权限‌：对应数字5
+	 * 执行，写（Execute，Write）权限‌：对应数字6
+	 * 执行，写, 读（Execute，Write，Read）权限‌：对应数字7
+	 */
+	private Integer permission;
 
 	public Long getUserId() {
 		return userId;
@@ -38,11 +47,12 @@ public class RoleDto extends AbstractVO<Long> {
 		this.userId = userId;
 	}
 
-	public String getName() {
-		return name;
+	public Integer getPermission() {
+		return permission;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPermission(Integer permission) {
+		this.permission = permission;
 	}
+	
 }

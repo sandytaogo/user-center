@@ -33,7 +33,6 @@ import com.sandy.user.center.vo.UserVO;
 
 /**
  * user center user controller.
- * 
  * @author Sandy
  * @since 1.0.0 04th 12 2018
  */

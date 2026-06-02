@@ -17,6 +17,7 @@
 package com.sandy.user.center.domain;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
@@ -142,6 +143,31 @@ public class User extends AbstractDateEntity<Long> {
 	}
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(circleId, other.circleId) && Objects.equals(email, other.email)
+				&& Objects.equals(gender, other.gender) && Objects.equals(headPortrait, other.headPortrait)
+				&& Objects.equals(islocked, other.islocked) && Objects.equals(mobile, other.mobile)
+				&& Objects.equals(nickName, other.nickName) && Objects.equals(password, other.password)
+				&& Objects.equals(roleIds, other.roleIds) && Objects.equals(roles, other.roles)
+				&& Objects.equals(userName, other.userName);
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(circleId, email, gender, headPortrait, islocked, mobile, nickName,
+				password, roleIds, roles, userName);
+		return result;
 	}
 	
 	@Override
